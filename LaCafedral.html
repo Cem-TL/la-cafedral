@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Cafedral</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        --brown-dark: #1e1208;
+        --brown-mid: #3b2a1a;
+        --brown-light: #6b4c2a;
+        --gold: #c9963a;
+        --gold-light: #e8c47a;
+        --cream: #faf6f0;
+        --cream-dark: #f0e8da;
+        --text: #2a1f14;
+        --text-light: #7a6550;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: 'Jost', sans-serif;
+        background-color: var(--cream);
+        color: var(--text);
+        font-weight: 300;
+      }
+
+      /* ── HEADER ── */
+      header {
+        position: relative;
+        background-color: var(--brown-dark);
+        color: white;
+        text-align: center;
+        padding: 100px 40px 80px;
+        overflow: hidden;
+      }
+
+      header::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(ellipse at 50% 0%, #5a3a1a 0%, transparent 70%);
+        pointer-events: none;
+      }
+
+      header::after {
+        content: '✦';
+        position: absolute;
+        font-size: 300px;
+        color: rgba(201,150,58,0.04);
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+      }
+
+      .header-inner {
+        position: relative;
+        z-index: 1;
+      }
+
+      .header-eyebrow {
+        font-family: 'Jost', sans-serif;
+        font-size: 11px;
+        letter-spacing: 5px;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 20px;
+      }
+
+      header h1 {
+        font-family: 'Playfair Display', serif;
+        font-size: 72px;
+        font-weight: 400;
+        letter-spacing: 2px;
+        line-height: 1;
+        margin-bottom: 20px;
+        animation: fadeInDown 0.8s ease forwards;
+      }
+
+      header p {
+        font-size: 15px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--gold-light);
+        font-weight: 300;
+        animation: fadeInUp 0.8s ease 0.2s both;
+      }
+
+      .header-divider {
+        width: 60px;
+        height: 1px;
+        background: var(--gold);
+        margin: 24px auto;
+        animation: expandWidth 0.8s ease 0.4s both;
+      }
+
+      @keyframes fadeInDown {
+        from { opacity: 0; transform: translateY(-20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      @keyframes expandWidth {
+        from { width: 0; }
+        to { width: 60px; }
+      }
+
+      /* ── NAV ── */
+      nav {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background-color: var(--brown-mid);
+        text-align: center;
+        padding: 0;
+        border-bottom: 1px solid rgba(201,150,58,0.2);
+      }
+
+      nav a {
+        display: inline-block;
+        color: rgba(255,255,255,0.7);
+        text-decoration: none;
+        margin: 0;
+        padding: 18px 28px;
+        font-size: 11px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        font-weight: 500;
+        transition: color 0.3s, background-color 0.3s;
+        position: relative;
+      }
+
+      nav a::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 2px;
+        background: var(--gold);
+        transition: width 0.3s ease;
+      }
+
+      nav a:hover {
+        color: var(--gold-light);
+        background-color: rgba(255,255,255,0.04);
+      }
+
+      nav a:hover::after {
+        width: 60%;
+      }
+
+      /* ── SECTIONS ── */
+      section {
+        padding: 90px 120px;
+        border-bottom: 1px solid var(--cream-dark);
+        opacity: 0;
+        transform: translate(30px);
+        transition: opacity 0.7s ease, transform 0.7s ease;
+      }
+
+      section.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .section-label {
+        font-size: 10px;
+        letter-spacing: 5px;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 12px;
+        font-weight: 500;
+      }
+
+      section h2 {
+        font-family: 'Playfair Display', serif;
+        font-size: 42px;
+        font-weight: 400;
+        color: var(--brown-mid);
+        margin-bottom: 40px;
+        line-height: 1.2;
+      }
+
+      section h3 {
+        font-size: 11px;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        color: var(--brown-light);
+        margin-bottom: 20px;
+        margin-top: 40px;
+        font-weight: 500;
+      }
+
+      section p {
+        font-size: 16px;
+        line-height: 1.9;
+        color: var(--text-light);
+        max-width: 640px;
+      }
+
+      /* ── ÜBER UNS ── */
+      #ueber-uns {
+        background-color: var(--cream);
+      }
+
+      .ueber-uns-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 80px;
+        align-items: center;
+      }
+
+      .ueber-uns-visual {
+        position: relative;
+        height: 320px;
+        background: var(--brown-mid);
+        border-radius: 2px;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .ueber-uns-visual::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(ellipse at 30% 40%, #6b4c2a 0%, #1e1208 100%);
+      }
+
+      .ueber-uns-visual-text {
+        position: relative;
+        z-index: 1;
+        font-family: 'Playfair Display', serif;
+        font-size: 80px;
+        color: rgba(201,150,58,0.15);
+        font-style: italic;
+        user-select: none;
+      }
+
+      .ueber-uns-badge {
+        position: absolute;
+        bottom: 24px;
+        right: 24px;
+        background: var(--gold);
+        color: var(--brown-dark);
+        font-size: 10px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        padding: 8px 14px;
+        font-weight: 500;
+      }
+
+      /* ── SPEISEKARTE ── */
+      #speisekarte {
+        background-color: var(--brown-dark);
+        color: white;
+      }
+
+      #speisekarte .section-label {
+        color: var(--gold);
+      }
+
+      #speisekarte h2 {
+        color: white;
+      }
+
+      #speisekarte h3 {
+        color: var(--gold-light);
+        border-bottom: 1px solid rgba(255,255,255,0.08);
+        padding-bottom: 12px;
+        margin-top: 50px;
+      }
+
+      .menu-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+      }
+
+      .menu-list {
+        list-style: none;
+      }
+
+      .menu-list li {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 14px 0;
+        border-bottom: 1px solid rgba(255,255,255,0.06);
+        font-size: 15px;
+        color: rgba(255,255,255,0.75);
+        transition: color 0.2s;
+      }
+
+      .menu-list li:hover {
+        color: var(--gold-light);
+      }
+
+      .menu-list li::after {
+        content: attr(data-price);
+        color: var(--gold);
+        font-size: 13px;
+        font-weight: 500;
+      }
+
+      /* ── ÖFFNUNGSZEITEN ── */
+      #oeffnungszeiten {
+        background-color: var(--cream-dark);
+      }
+
+      .oeffnungszeiten-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 80px;
+        align-items: start;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      td {
+        padding: 14px 0;
+        font-size: 15px;
+        border-bottom: 1px solid rgba(58,42,26,0.1);
+        color: var(--text-light);
+      }
+
+      td:first-child {
+        color: var(--text);
+        font-weight: 500;
+        font-size: 13px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        width: 140px;
+      }
+
+      td:last-child {
+        color: var(--brown-light);
+      }
+
+      .heute-badge {
+        display: inline-block;
+        background: var(--gold);
+        color: var(--brown-dark);
+        font-size: 9px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        padding: 3px 8px;
+        margin-left: 10px;
+        font-weight: 500;
+        vertical-align: middle;
+      }
+
+      /* ── KONTAKT ── */
+      #kontakt {
+        background-color: var(--cream);
+      }
+
+      .kontakt-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 80px;
+      }
+
+      .kontakt-item {
+        margin-bottom: 40px;
+      }
+
+      .kontakt-item h3 {
+        margin-top: 0;
+        margin-bottom: 14px;
+      }
+
+      .kontakt-item p {
+        font-size: 15px;
+        line-height: 2;
+      }
+
+      .kontakt-item a {
+        color: var(--gold);
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+
+      .kontakt-item a:hover {
+        color: var(--brown-light);
+      }
+
+      .map-placeholder {
+        background: var(--brown-mid);
+        height: 280px;
+        border-radius: 2px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .map-placeholder::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(ellipse at 50% 50%, #5a3a1a, #1e1208);
+      }
+
+      .map-pin {
+        position: relative;
+        z-index: 1;
+        text-align: center;
+        color: var(--gold-light);
+      }
+
+      .map-pin-icon {
+        font-size: 36px;
+        display: block;
+        margin-bottom: 10px;
+      }
+
+      .map-pin-text {
+        font-size: 11px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: rgba(255,255,255,0.5);
+      }
+
+      /* ── FOOTER ── */
+      footer {
+        background-color: var(--brown-dark);
+        color: rgba(255,255,255,0.4);
+        text-align: center;
+        padding: 40px;
+        font-size: 11px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+      }
+
+      footer span {
+        color: var(--gold);
+      }
+
+      input, textarea, button {
+        width: 100%;  
+        padding: 10px;
+        border: 1px solid var(--cream-dark); 
+        margin-bottom: 10px;
+      }
+      button {
+        background-color: var(--brown-mid);
+        color: white;
+        border: none;
+        cursor: pointer;
+        font-family: 'Jost', sans-serif;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        font-size: 11px;
+        transition: background-color 0.3s;
+      }
+
+      button:hover {
+        background-color: var(--gold);
+        color: var(--brown-dark);
+      }
+      #hamburger {
+        display: none;
+        background: none;
+        border: none;
+        color: white;
+        font-size: 24px;
+        cursor: pointer;
+        padding: 18px;
+      }
+      
+
+      /* ── SCROLL ANIMATION ── */
+      @media (prefers-reduced-motion: no-preference) {
+        section {
+          transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+      }
+      @media (max-width: 768px) {
+    .ueber-uns-grid {
+        grid-template-columns: 1fr;
+    }
+    .menu-grid {
+        grid-template-columns: 1fr;
+    }
+    .oeffnungszeiten-grid {
+        grid-template-columns: 1fr;
+    }
+    .kontakt-grid {
+        grid-template-columns: 1fr;
+    }
+    header {
+    padding: 60px 20px 50px;
+    }
+
+    header h1 {
+        font-size: 42px;
+    }
+
+    section {
+        padding: 60px 30px;
+    }
+    #hamburger {
+    display: block;
+    }
+
+    nav a {
+        display: none;
+    }
+  }
+    </style>
+  </head>
+  <body>
+
+    <header>
+      <div class="header-inner">
+        <p class="header-eyebrow">Kiel, Schleswig-Holstein</p>
+        <h1>La Cafedral</h1>
+        <div class="header-divider"></div>
+        <p>Kaffee mit Seele – mitten in Kiel</p>
+      </div>
+    </header>
+
+    <nav>
+      <a href="#ueber-uns">Über uns</a>
+      <a href="#speisekarte">Speisekarte</a>
+      <a href="#oeffnungszeiten">Öffnungszeiten</a>
+      <a href="#kontakt">Kontakt</a>
+      <button id="hamburger">☰</button>
+    </nav>
+
+    <section id="ueber-uns">
+      <div class="ueber-uns-grid">
+        <div>
+          <p class="section-label">Unsere Geschichte</p>
+          <h2>Mehr als nur ein Kaffee</h2>
+          <p>La Cafedral wurde 2018 im Herzen von Kiel gegründet. Wir glauben daran, dass ein guter Kaffee mehr ist als ein Getränk – er ist ein Moment der Ruhe im Alltag. Unsere Bohnen beziehen wir direkt von kleinen Familienbetrieben aus Kolumbien und Äthiopien.</p>
+        </div>
+        <div class="ueber-uns-visual">
+          <span class="ueber-uns-visual-text">café</span>
+          <span class="ueber-uns-badge">Seit 2018</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="speisekarte">
+      <p class="section-label">Genuss & Auswahl</p>
+      <h2>Unsere Karte</h2>
+      <div class="menu-grid">
+        <div>
+          <h3>Getränke</h3>
+          <ul class="menu-list">
+            <li data-price="2,50 €">Espresso</li>
+            <li data-price="3,20 €">Cappuccino</li>
+            <li data-price="3,80 €">Latte Macchiato</li>
+            <li data-price="2,80 €">Americano</li>
+            <li data-price="2,90 €">Tee</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Speisen</h3>
+          <ul class="menu-list">
+            <li data-price="2,20 €">Croissant</li>
+            <li data-price="4,50 €">Käsekuchen</li>
+            <li data-price="8,90 €">Avocado Toast</li>
+            <li data-price="5,50 €">Bagel</li>
+            <li data-price="2,80 €">Muffin</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="oeffnungszeiten">
+      <div class="oeffnungszeiten-grid">
+        <div>
+          <p class="section-label">Wann wir da sind</p>
+          <h2>Öffnungszeiten</h2>
+          <table>
+            <tr>
+              <td>Montag</td>
+              <td>08:00 – 18:00</td>
+            </tr>
+            <tr>
+              <td>Dienstag</td>
+              <td>08:00 – 18:00</td>
+            </tr>
+            <tr>
+              <td>Mittwoch</td>
+              <td>08:00 – 18:00</td>
+            </tr>
+            <tr>
+              <td>Donnerstag</td>
+              <td>08:00 – 18:00</td>
+            </tr>
+            <tr>
+              <td>Freitag <span class="heute-badge">Heute</span></td>
+              <td>08:00 – 18:00</td>
+            </tr>
+            <tr>
+              <td>Samstag</td>
+              <td>08:00 – 18:00</td>
+            </tr>
+            <tr>
+              <td>Sonntag</td>
+              <td>08:00 – 13:00</td>
+            </tr>
+          </table>
+        </div>
+        <div>
+          <p class="section-label">Wo wir sind</p>
+          <h2>Anfahrt</h2>
+          <div class="map-placeholder">
+            <div class="map-pin">
+              <span class="map-pin-icon">📍</span>
+              <span class="map-pin-text">Holstenstraße 42, Kiel</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="kontakt">
+      <p class="section-label">Schreib uns</p>
+      <h2>Kontakt</h2>
+      <div class="kontakt-grid">
+        <div>
+          <div class="kontakt-item">
+            <h3>Adresse</h3>
+            <p>Holstenstraße 42<br>24103 Kiel</p>
+          </div>
+          <div class="kontakt-item">
+            <h3>Erreichbarkeit</h3>
+            <p>
+              Telefon: <a href="tel:0431123456">0431 123456</a><br>
+              E-Mail: <a href="mailto:info@lacafedral.de">info@lacafedral.de</a>
+            </p>
+          </div>
+        </div>
+        <div>
+          <div class="kontakt-item">
+            <h3>Reservierung</h3>
+            <form action="https://formspree.io/f/mwvzdqgk" method="POST">
+              <input type="text" name="name" placeholder="Dein Name">
+              <input type="email" name="email" placeholder="Deine E-Mail">
+              <input type="tel" name="telefon" placeholder="Telefonnummer">
+              <input type="datetime-local" name="datum-uhrzeit">
+              <input type="number" name="personen" placeholder="Anzahl Personen" min="1" max="20">
+              <textarea name="nachricht" placeholder="Deine Nachricht"></textarea>
+              <button type="submit">Absenden</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <p>© 2024 <span>La Cafedral</span> · Alle Rechte vorbehalten</p>
+    </footer>
+
+    <script>
+      // Scroll-Animation für Sections
+      const sections = document.querySelectorAll('section');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.1 });
+
+      sections.forEach(section => observer.observe(section));
+
+      // Aktuellen Tag hervorheben
+      const tage = ['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag'];
+      const heute = tage[new Date().getDay()];
+      document.querySelectorAll('td:first-child').forEach(td => {
+        if (td.textContent.trim().startsWith(heute)) {
+          let badge = td.querySelector('.heute-badge');
+          if (!badge) {
+            badge = document.createElement('span');
+            badge.className = 'heute-badge';
+            badge.textContent = 'Heute';
+            td.appendChild(badge);
+          }
+        } else {
+          const badge = td.querySelector('.heute-badge');
+          if (badge) badge.remove();
+        }
+      });
+      let hamburger = document.querySelector("#hamburger");
+      let navLinks = document.querySelectorAll("nav a");
+
+      hamburger.addEventListener("click", function() {
+          navLinks.forEach(function(link) {
+              if (link.style.display === "block") {
+                  link.style.display = "none";
+              } else {
+                  link.style.display = "block";
+              }
+          });
+      });
+    </script>
+
+  </body>
+</html>
